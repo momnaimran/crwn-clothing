@@ -1,0 +1,69 @@
+.menu-item {
+  min-width: 30%;
+  height: 240px;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  margin: 0 7.5px 15px;
+  overflow: hidden; //is ki wja say jo hover kernay per image ka size increase hota jata hay 6s kay leay wo main manu item div kay size say bahor nai jaay ga aur ye
+
+  &:hover {
+    cursor: pointer; //jub hover ho to cursor ayk pointer ke shakal ka he rhay na kay kisi finger ke shakal ka
+
+    & .background-image {
+      transform: scale(
+        1.1
+      ); // jub hover ho to background image ka size 1.1 times increase hojaay
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95); //6s means kay hum chahtay hian kay 6 seconds tk image a size current size say 1.1 time bhera hota rhay aur this cubic function is a mathematical calculation that ensures a smooth transition
+    }
+
+    & .content {
+      opacity: 0.9;
+    }
+  }
+
+  &.large {
+    height: 380px;
+  }
+
+  &:first-child {
+    margin-right: 7.5px;
+  }
+
+  &:last-child {
+    margin-left: 7.5px;
+  }
+
+  .background-image {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+  .content {
+    height: 90px;
+    padding: 0 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    background-color: white;
+    opacity: 0.7;
+    position: absolute; //absolute means kay no matter baqi page ke calculations kya hain iski postition apni specified calculations kay according he hoge
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 22px;
+      color: #4a4a4a;
+    }
+
+    .subtitle {
+      font-weight: lighter;
+      font-size: 16px;
+    }
+  }
+}
