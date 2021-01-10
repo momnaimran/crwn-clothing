@@ -16,7 +16,7 @@
       transform: scale(
         1.1
       ); // jub hover ho to background image ka size 1.1 times increase hojaay
-      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95); //6s means kay hum chahtay hian kay 6 seconds tk image a size current size say 1.1 time bhera hota rhay aur this cubic function is a mathematical calculation that ensures a smooth transition
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95); //6s means kay hum chahtay hian kay 6 seconds tk image a size current size say 1.1 time bhera hota rhay aur this cubic function is a mathematical calculation that ensures a smooth transition it determines the speed in which this transition occurs
     }
 
     & .content {
