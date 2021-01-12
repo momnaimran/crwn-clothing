@@ -2,7 +2,7 @@ import React from 'react';
 import './signin.styles.scss';
 import FormInput from '../form-input/form-input';
 import CustomButton from '../custom-button/custom-button';
-import {signInWithGoogle} from '../../firebase/firebase.util'
+import {auth, signInWithGoogle} from '../../firebase/firebase.util'
 class Signin extends React.Component{
 constructor(props)
 {
@@ -12,10 +12,19 @@ constructor(props)
         'password':''
    };
 }
-handleSubmit= event=>{
+handleSubmit= async event=>{
 event.preventdefault();
-this.setState({email:'', password:''});
+const {email, password}= this.state;
+try{
+await auth.signInWithEmailAndPassword(email, password);
+this.setState({email:'', password:''});}
+catch(error)
+{
+    console.error(error);
 }
+}
+
+
 handleChange = event => {
          const {value, name}= event.target;
          this.setState({[name]:value});  //state main email aur password ke value ayk he function likhnay say set ho gae hay
