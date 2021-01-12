@@ -6,7 +6,7 @@ import {Route} from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import Header from "./components/header/header-component.jsx";
 import Signin_Signup from './pages/signin-signup/signin-signup.jsx';
-import {auth} from './firebase/firebase.util';
+import {auth, createUserProfile} from './firebase/firebase.util';
 
 
 class App extends React.Component {
@@ -14,15 +14,37 @@ class App extends React.Component {
  {
    super();
    this.state={
-     currentUser:'null'
+     currentUser:null
    }
  }
- unsunscribeFromAuth=null
+ unsunscribeFromAuth=null;
+
+
 componentDidMount()
 {
-this.unsunscribeFromAuth= auth.onAuthStateChanged(user =>
-     {this.setState({currentUser:user})});
+this.unsunscribeFromAuth= auth.onAuthStateChanged(async userAuth =>{
+     if(userAuth)
+     {
+        const userRef = await createUserProfile(userAuth);
+        userRef.onSnapshot(snapShot => {
+          this.setState(
+            {
+                currentUser:{
+                  id: snapShot.id,
+                  ...snapShot.data()
+                }
+            }
+          );
+        }
+        );
+     }
+     else{
+       this.setState({currentUser: userAuth});
+     }}
+     );    
 }
+
+
 componentWillUnmount(){
   this.unsunscribeFromAuth();
 }
@@ -38,6 +60,7 @@ componentWillUnmount(){
     </div>
   );
 }
+
 }
 
 export default App;
