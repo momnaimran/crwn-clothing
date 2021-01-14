@@ -16,10 +16,11 @@ export default !firebase.apps.length ? firebase.initializeApp(config) : firebase
 
 export const auth= firebase.auth();
 export const firestore= firebase.firestore();
+//stuff for google sign in
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({prompt: 'select_account'});
 export const signInWithGoogle= () => auth.signInWithPopup(provider);
-
+//google sign in end
 export const createUserProfile =async (userAuth, additionalData)=>
 {
   if(!userAuth) return;
