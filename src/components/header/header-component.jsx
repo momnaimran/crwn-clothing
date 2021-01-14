@@ -3,7 +3,10 @@ import "./header-compoent.styles.scss";
 import {ReactComponent as Logo} from '../../assests/crown.svg';
 import {Link} from 'react-router-dom';
 import { connect } from "react-redux";
+import  CartIcon  from "../cart-icon/cart-icon.component";
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import {auth} from '../../firebase/firebase.util';
+//import CustomButton from '../custom-button/custom-button';
 
 
 const Header= ({currentUser}) =>
@@ -26,8 +29,9 @@ CONTACT
     :
     <Link className="option" to='/signin'>SIGN IN</Link>
 }
+<CartIcon/>
 </div>
-
+<CartDropdown/>
 </div>
 );
 
