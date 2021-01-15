@@ -9,7 +9,7 @@ import {auth} from '../../firebase/firebase.util';
 //import CustomButton from '../custom-button/custom-button';
 
 
-const Header= ({currentUser}) =>
+const Header= ({currentUser, hidden}) =>
 (
 <div className="header">
 <Link to="/" className="logo-container">
@@ -31,14 +31,16 @@ CONTACT
 }
 <CartIcon/>
 </div>
-<CartDropdown/>
+{
+    hidden ? null : <CartDropdown/>}
 </div>
 );
 
 
-const mapStatetoProps = state =>(
+const mapStatetoProps = ({user: {currentUser}, cart: {hidden}}) =>(
     {
-        currentUser : state.user.currentUser
+        currentUser,
+        hidden
     }
 );
 
