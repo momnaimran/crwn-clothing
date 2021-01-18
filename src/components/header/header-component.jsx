@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 import  CartIcon  from "../cart-icon/cart-icon.component";
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import {auth} from '../../firebase/firebase.util';
+import { selectCartHidden } from "../../redux/cart/cart.selector";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../../redux/user/user.selector";
 //import CustomButton from '../custom-button/custom-button';
 
 
@@ -37,10 +40,10 @@ CONTACT
 );
 
 
-const mapStatetoProps = ({user: {currentUser}, cart: {hidden}}) =>(
+const mapStatetoProps = createStructuredSelector(
     {
-        currentUser,
-        hidden
+       currentUser: selectCurrentUser,
+        hidden: selectCartHidden
     }
 );
 

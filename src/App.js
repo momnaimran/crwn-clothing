@@ -9,6 +9,9 @@ import SIGNIN_SIGNUP from './pages/signin-signup/signin-signup';
 import {auth, createUserProfile} from './firebase/firebase.util';
 import {connect} from "react-redux";
 import {setCurrentUser} from './redux/user/users.actions';
+import { selectCurrentUser } from "./redux/user/user.selector";
+import { createStructuredSelector } from "reselect";
+import CheckoutPage from './pages/checkout/checkout.component';
 
 class App extends React.Component {
 
@@ -51,6 +54,7 @@ componentWillUnmount(){
       <Route exact path='/signin' render={() =>
        this.props.currentUser ? (<Redirect to='/'/>) 
        : (<SIGNIN_SIGNUP/>)} />
+       <Route exact path='/checkout' component={CheckoutPage}/>
       </Switch>
     </div>
   );
@@ -58,8 +62,8 @@ componentWillUnmount(){
 
 }
 
-const mapStateToProps =({user})=> ({
-  currentUser: user.currentUser
+const mapStateToProps =createStructuredSelector({
+  currentUser: selectCurrentUser 
 });
 
 const mapDispatchToProps= dispatch => ({
