@@ -7,10 +7,10 @@ export const selectCollections = createSelector(
 );
 
 export const selectCollectionsPreview = createSelector(
-    [selectCollections], collection=> Object.keys(collection).map(key=> collection[key])
+    [selectCollections], collection=> collection ? Object.keys(collection).map(key=> collection[key]) : []
 );
 export const selectCollection=memoize((CollectionUrlParam) => createSelector(
           [selectCollections], 
-          collection=>
-          collection[CollectionUrlParam]
+          collection=> (collection ? 
+          collection[CollectionUrlParam]: null)
 )); 

@@ -6,12 +6,13 @@ import {Route, Redirect} from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import Header from "./components/header/header-component.jsx";
 import SIGNIN_SIGNUP from './pages/signin-signup/signin-signup';
-import {auth, createUserProfile} from './firebase/firebase.util';
+import {auth, createUserProfile/*, addCollectionAndDocuments*/} from './firebase/firebase.util';
 import {connect} from "react-redux";
 import {setCurrentUser} from './redux/user/users.actions';
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import CheckoutPage from './pages/checkout/checkout.component';
+//import {selectCollectionsPreview} from './redux/shop/shop.selecttor';
 
 class App extends React.Component {
 
@@ -20,7 +21,7 @@ class App extends React.Component {
 
 componentDidMount()
 {
-  const { setCurrentUser } = this.props;
+  const { setCurrentUser/*, collectionsArray */} = this.props;
 this.unsubscribeFromAuth= auth.onAuthStateChanged(async userAuth =>{
      if(userAuth)
      {
@@ -35,7 +36,7 @@ this.unsubscribeFromAuth= auth.onAuthStateChanged(async userAuth =>{
      }
      
        setCurrentUser(userAuth);
-     
+    // addCollectionAndDocuments('Collections', collectionsArray.map(({title, items})=> ({title, items})));
     });    
 }
 
@@ -63,7 +64,8 @@ componentWillUnmount(){
 }
 
 const mapStateToProps =createStructuredSelector({
-  currentUser: selectCurrentUser 
+  currentUser: selectCurrentUser,
+//  collectionsArray: selectCollectionsPreview
 });
 
 const mapDispatchToProps= dispatch => ({

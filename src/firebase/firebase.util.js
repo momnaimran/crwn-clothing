@@ -40,6 +40,34 @@ export const createUserProfile =async (userAuth, additionalData)=>
   }
   return userRef;
 };
+//writing this so i don't have to put shop data into firestore manually 
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch=firestore.batch();
+  objectsToAdd.forEach(    //forEach method just applies our function/ process on every element in the array it does not give us a bew array in return unlike maps
+   obj => {
+    const newDocRef = collectionRef.doc(); //get me a new document space that is emmpty also assign it a unique id 
+     batch.set(newDocRef, obj);
+  }
+  );
+  return await batch.commit(); //to fire off our batch request batch.commit returns us a promise which can be useful incase we wanna do something after the call is successful in case of siccess it returns a null value in the promise 
+};
 
+export const convertCollectionSnapshotToMap = (collections)=> {
 
-//export default firebase;
+  const transformedCollection = collections.docs.map(
+     doc => {
+      const {title, items}= doc.data();
+
+       return {
+         routeName: encodeURI(title.toLowerCase()),
+         id: doc.id,
+         title,
+         items
+       };
+     });
+     return transformedCollection.reduce( (accumlator, collection)=> {
+       accumlator[collection.title.toLowerCase()]= collection;
+       return accumlator;
+     },{});
+}
