@@ -20,7 +20,7 @@ class Shop extends React.Component{
    componentDidMount(){
        const {updateCollections}= this.props;
    const collectionRef=firestore.collection('Collections');
-   collectionRef.onSnapshot(async snapShot=> {
+   collectionRef.get().then(snapShot=> {               //yahan pehlay collectionRef.onSnapShot(async snapShot => baqi cooodddeeeee) that humnay ye esay promise pattern kay leay kerkay dekha hay wo seekhnay kay leay wesay he issay ye nuqsaan hay kay live updates kay sath cooperate nai keray ga ye jesay on snapchot kerta tha component jub remount hoga update tb he hoge bs
        const collectionMap= convertCollectionSnapshotToMap(snapShot);
        updateCollections(collectionMap);
        this.setState({loading: false});
