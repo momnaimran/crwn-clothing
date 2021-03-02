@@ -1,7 +1,7 @@
 import React from 'react';
 import HomePage  from "./pages/homepage/homepage.componets.jsx";
 import Shop from "./pages/shop/shop.component.jsx";
-import './App.css';
+import {GlobalStyle} from './global.styles';
 import {Route, Redirect} from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import Header from "./components/header/header-component.jsx";
@@ -48,6 +48,7 @@ componentWillUnmount(){
   render(){
   return (
     <div>
+    <GlobalStyle/>
     <Header />
       <Switch>
       <Route exact path='/' component={HomePage}/>
